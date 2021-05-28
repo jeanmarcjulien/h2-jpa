@@ -4,6 +4,8 @@ import com.example.demo.domain.Customer;
 import com.example.demo.repository.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 public class CustomerController {
 
@@ -54,6 +56,35 @@ public class CustomerController {
     @DeleteMapping("delete")
     public void delete(@RequestBody Customer customer) {
         this.repository.delete(customer);
+    }
+    /*
+    //localhost:8080/update/id/1
+        {
+            "firstName": "John3",
+            "lastName": "Doe3"
+        }
+    */
+    @PatchMapping("/update/id/{id}")
+    public void patchUpdate(@RequestBody Customer customerInput,@PathVariable Long id) {
+        Customer customer = this.repository.findById(id).get();
+        customer.setFirstName(customerInput.getFirstName());
+        customer.setLastName(customerInput.getLastName());
+        this.repository.save(customer);
+    }
+
+    /*
+    //localhost:8080/update/id/1
+        {
+            "firstName": "John4",
+            "lastName": "Doe4"
+        }
+    */
+    @PutMapping("/update/id/{id}")
+    public void putUpdate(@RequestBody Customer customerInput,@PathVariable Long id) {
+        Customer customer = this.repository.findById(id).get();
+        customer.setFirstName(customerInput.getFirstName());
+        customer.setLastName(customerInput.getLastName());
+        this.repository.save(customer);
     }
 
 }
