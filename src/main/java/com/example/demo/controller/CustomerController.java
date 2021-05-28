@@ -29,19 +29,19 @@ public class CustomerController {
     }
     */
 
-    @PostMapping("/create")
+    @PostMapping("customer")
     public Customer create(@RequestBody Customer customer) {
         return this.repository.save(customer);
     }
 
     //localhost:8080/list
-    @GetMapping("/list")
+    @GetMapping("customers")
     public Iterable<Customer> list() {
         return this.repository.findAll();
     }
 
     //localhost:8080/read/lastname/Doe
-    @GetMapping("/read/lastname/{lastName}")
+    @GetMapping("customer/{lastName}")
     public Iterable<Customer> read(@PathVariable String lastName) {
         return this.repository.findByLastName(lastName);
     }
@@ -53,7 +53,7 @@ public class CustomerController {
     }
     */
 
-    @DeleteMapping("delete")
+    @DeleteMapping("customer/{id}")
     public void delete(@RequestBody Customer customer) {
         this.repository.delete(customer);
     }
@@ -64,7 +64,7 @@ public class CustomerController {
             "lastName": "Doe3"
         }
     */
-    @PatchMapping("/update/id/{id}")
+    @PatchMapping("customer/{id}")
     public void patchUpdate(@RequestBody Customer customerInput,@PathVariable Long id) {
         Customer customer = this.repository.findById(id).get();
         customer.setFirstName(customerInput.getFirstName());
@@ -79,7 +79,7 @@ public class CustomerController {
             "lastName": "Doe4"
         }
     */
-    @PutMapping("/update/id/{id}")
+    @PutMapping("customer/{id}")
     public void putUpdate(@RequestBody Customer customerInput,@PathVariable Long id) {
         Customer customer = this.repository.findById(id).get();
         customer.setFirstName(customerInput.getFirstName());
